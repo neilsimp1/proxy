@@ -1,35 +1,30 @@
 ﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace NathanAlden.Proxy.Http
-{
-    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + "}")]
-    public class HostHeader : Header
-    {
-        private static readonly char[] _colon = { ':' };
-        private static readonly Regex _regex = new Regex(@"^.+(:\d{1,5})?$");
+namespace NathanAlden.Proxy.Http {
+	[DebuggerDisplay("{" + nameof(DebuggerDisplay) + "}")]
+	public class HostHeader : Header {
+		private static readonly char[] _colon = { ':' };
+		private static readonly Regex _regex = new Regex(@"^.+(:\d{1,5})?$");
 
-        private HostHeader(string host, int? port)
-            : base("Host", $"{host}{(port != null ? $":{port}" : "")}")
-        {
-            Host = host;
-            Port = port;
-        }
+		private HostHeader(string host, int? port)
+			: base("Host", $"{host}{(port != null ? $":{port}" : "")}") {
+			Host = host;
+			Port = port;
+		}
 
-        public string Host { get; }
-        public int? Port { get; }
-        private string DebuggerDisplay => ToString();
+		public string Host { get; }
+		public int? Port { get; }
+		private string DebuggerDisplay => ToString();
 
-        public static HostHeader Parse(Header header)
-        {
-            if (header == null || !_regex.IsMatch(header.Value))
-            {
-                return null;
-            }
+		public static HostHeader Parse(Header header) {
+			if (header == null || !_regex.IsMatch(header.Value)) {
+				return null;
+			}
 
-            string[] valueParts = header.Value.Split(_colon);
+			string[] valueParts = header.Value.Split(_colon);
 
-            return new HostHeader(valueParts[0], valueParts.Length == 2 ? int.Parse(valueParts[1]) : (int?)null);
-        }
-    }
+			return new HostHeader(valueParts[0], valueParts.Length == 2 ? int.Parse(valueParts[1]) : (int?)null);
+		}
+	}
 }

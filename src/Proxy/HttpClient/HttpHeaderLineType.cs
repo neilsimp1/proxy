@@ -1,9 +1,7 @@
-﻿namespace NathanAlden.Proxy.HttpClient
-{
-    public enum HttpHeaderLineType
-    {
-        Header,
-        NewLine,
-        RequestLineOrResponseStatusLine
-    }
+﻿namespace NathanAlden.Proxy.HttpClient {
+	public enum HttpHeaderLineType {
+		Header,
+		NewLine,
+		RequestLineOrResponseStatusLine
+	}
 }

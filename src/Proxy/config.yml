@@ -12,6 +12,13 @@ forwardProxies:
 #      basic:                  # Basic proxy authentication.
 #        enabled: true         # Determines if the proxy will automatically supply basic credentials in response to 407 Proxy Authentication Required responses. Default is false.
 #        username:             # The user will be prompted to supply username if this value is empty.
+  http:
+    host: 74.109.184.109
+    port: 9090                  # The port of the forward proxy.
+#    authentication:
+#      basic:                  # Basic proxy authentication.
+#        enabled: true         # Determines if the proxy will automatically supply basic credentials in response to 407 Proxy Authentication Required responses. Default is false.
+#        username:             # The user will be prompted to supply username if this value is empty.
 #  https:
 #    host: example.com
 #    port: 80

@@ -1,8 +1,6 @@
-﻿namespace NathanAlden.Proxy.HttpClient
-{
-    public enum GetRequestLineResult
-    {
-        Success,
-        InvalidRequestLine
-    }
+﻿namespace NathanAlden.Proxy.HttpClient {
+	public enum GetRequestLineResult {
+		Success,
+		InvalidRequestLine
+	}
 }

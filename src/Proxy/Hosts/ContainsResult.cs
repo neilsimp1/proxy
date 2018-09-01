@@ -1,9 +1,7 @@
-﻿namespace NathanAlden.Proxy.Hosts
-{
-    public enum ContainsResult
-    {
-        Yes,
-        No,
-        Inapplicable
-    }
+﻿namespace NathanAlden.Proxy.Hosts {
+	public enum ContainsResult {
+		Yes,
+		No,
+		Inapplicable
+	}
 }

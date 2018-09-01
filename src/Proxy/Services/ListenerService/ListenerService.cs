@@ -27,45 +27,34 @@ namespace NathanAlden.Proxy.Services.ListenerService
 
         public void Start()
         {
-            lock (_lockObject)
-            {
+            lock (_lockObject) {
                 _listeners = _configService.Config.Bindings.IpAddresses.Select(x => CreateListener(x, _configService.Config.Bindings.Port)).Where(x => x != null).ToImmutableList();
 
-                _listeners.ForEach(
-                    x =>
-                    {
-                        Task.Run(async () =>
-                                 {
-                                     while (true)
-                                     {
-                                         TcpClient client;
+                _listeners.ForEach(x => {
+                    Task.Run(async () => {
+                        while (true) {
+                            TcpClient client;
 
-                                         try
-                                         {
-                                             client = await x.AcceptTcpClientAsync();
-                                         }
-                                         catch
-                                         {
-                                             return;
-                                         }
+                            try {
+                                client = await x.AcceptTcpClientAsync();
+                            }
+                            catch {
+                                return;
+                            }
 
-                                         var endpoint = (IPEndPoint)client.Client.RemoteEndPoint;
-                                         int id = _downstreamClientService.Add(client);
+                            var endpoint = (IPEndPoint)client.Client.RemoteEndPoint;
+                            var id = _downstreamClientService.Add(client);
 
-                                         LogMessage.Downstream(LogEventLevel.Information, id, endpoint.Address, "Connection accepted").Write();
-                                     }
-                                 });
+                            LogMessage.Downstream(LogEventLevel.Information, id, endpoint.Address, "Connection accepted").Write();
+                        }
                     });
+                });
             }
         }
 
-        public void Stop()
-        {
-            lock (_lockObject)
-            {
-                _listeners.ForEach(
-                    x =>
-                    {
+        public void Stop() {
+            lock (_lockObject) {
+                _listeners.ForEach(x => {
                         x.Stop();
 
                         var endpoint = (IPEndPoint)x.LocalEndpoint;
