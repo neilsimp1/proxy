@@ -26,12 +26,11 @@ namespace NathanAlden.Proxy.Services.DownstreamClientService {
 				_downstreamClients.Add(downstreamClient);
 			}
 
-			downstreamClient.ClosedByClient.Subscribe(
-				x => {
-					lock (_lockObject) {
-						_downstreamClients.Remove(downstreamClient);
-					}
-				});
+			downstreamClient.ClosedByClient.Subscribe(x => {
+				lock (_lockObject) {
+					_downstreamClients.Remove(downstreamClient);
+				}
+			});
 
 			downstreamClient.Run();
 
